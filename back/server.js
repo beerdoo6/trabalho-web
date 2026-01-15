@@ -1,25 +1,19 @@
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-
-const authRoutes = require('./routes/auth');
-require('./db');
-
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
-// Servir frontend
-app.use(express.static(path.join(__dirname, '../front')));
+app.use('/alunos', require('./routes/alunosRoutes'));
+app.use('/professores', require('./routes/professoresRoutes'));
+app.use('/cursos', require('./routes/cursosRoutes'));
+app.use('/disciplinas', require('./routes/disciplinasRoutes'));
+app.use('/turmas', require('./routes/turmasRoutes'));
+app.use('/matriculas', require('./routes/matriculasRoutes'));
 
-// Rotas de autenticação
-app.use('/api/auth', authRoutes);
-
-// Teste
-app.get('/api/teste', (req, res) => {
-    res.json({ ok: true });
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
 });
+
 
 // Servidor
 app.listen(3000, () => {
