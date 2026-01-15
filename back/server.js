@@ -14,9 +14,3 @@ app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
 });
 
-
-// Servidor
-app.listen(3000, () => {
-    console.log(' Backend rodando em http://localhost:3000');
-    console.log(' MySQL conectado');
-});
