@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Professor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        h1 { color: #004a80; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        th {
+            background: #eee;
+        }
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+const token = localStorage.getItem('token');
+const tipo = localStorage.getItem('tipo');
+const email = localStorage.getItem('email');
+
+if (!token || tipo !== 'professor') {
+    alert('Acesso negado');
+    window.location.href = 'login.html';
+}
+</script>
+
+<div class="container">
+    <h1>Painel do Professor</h1>
+
+    <!-- DADOS DO PROFESSOR -->
+    <h2>Meus Dados</h2>
+    <table>
+        <tr>
+            <th>Nome</th>
+            <td id="nome"></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td id="email"></td>
+        </tr>
+    </table>
+
+    <!-- TURMAS / DISCIPLINAS -->
+    <h2>Minhas Turmas e Disciplinas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Turma</th>
+                <th>Disciplina</th>
+            </tr>
+        </thead>
+        <tbody id="turmasDisciplinas"></tbody>
+    </table>
+
+    <!--

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Acadêmico - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="card">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>Sistema Acadêmico</h1>
+            </div>
+            
+            <div class="message error" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="errorText">Credenciais inválidas. Tente novamente.</span>
+            </div>
+            
+            <div class="message success" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                <span id="successText">Login realizado com sucesso!</span>
+            </div>
+            
+            <h2>Login</h2>
+            
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="tipoUsuario">
+                        <i class="fas fa-user-tag"></i> Tipo de Usuário
+                    </label>
+                    <select id="tipoUsuario" required>
+                        <option value="">Selecione seu tipo...</option>
+                        <option value="admin">Administrador</option>
+                        <option value="aluno">Aluno</option>
+                        <option value="professor">Professor</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> E-mail
+                    </label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="senha">
+                        <i class="fas fa-lock"></i> Senha
+                    </label>
+                    <div class="password-wrapper">
+                        <input type="password" id="senha" placeholder="••••••••" required>
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="forgot-password">
+                    <a href="#" id="forgotPasswordLink">
+                        <i class="fas fa-key"></i> Esqueceu a senha?
+                    </a>
+                </div>
+                
+                <button type="submit" id="loginBtn" class="btn-primary">
+                    <span id="loginText">
+                        <i class="fas fa-sign-in-alt"></i> Entrar
+                    </span>
+                    <span id="loginLoading" class="loading">
+                        <span class="spinner"></span> Entrando...
+                    </span>
+                </button>
+                
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+                
+                <button type="button" class="btn-secondary" id="demoBtn">
+                    <i class="fas fa-magic"></i> Usar Credenciais de Demonstração
+                </button>
+                
+                <a class="toggle-link" href="#" id="registerLink">
+                    <i class="fas fa-user-plus"></i> Primeiro acesso? Cadastre-se aqui
+                </a>
+                
+                <div class="demo-credentials">
+                    <h4><i class="fas fa-info-circle"></i> Credenciais de Teste</h4>
+                    <div class="credentials-grid">
+                        <div class="credential-card">
+                            <h5>Administrador</h5>
+                            <p><strong>E-mail:</strong> admin@academico.com</p>
+                            <p><strong>Senha:</strong> admin123</p>
+                        </div>
+                        <div class="credential-card">
+                            <h5>Aluno</h5>
+                            <p><strong>E-mail:</strong> carlos@email.com</p>
+                            <p><strong>Senha:</strong> aluno123</p>
+                        </div>
+                        <div class="credential-card">
+                            <h5>Professor</h5>
+                            <p><strong>E-mail:</strong> joao.silva@email.com</p>
+                            <p><strong>Senha:</strong> prof123</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<h2>Dashboard</h2>
+
+<button onclick="location.href='alunos.html'">Cadastrar Aluno</button>
+<button onclick="location.href='professores.html'">Cadastrar Professor</button>
+<button onclick="logout()">Sair</button>
+
+<script>
+function logout() {
+    localStorage.clear();
+    location.href = 'login.html';
+}
+</script>
