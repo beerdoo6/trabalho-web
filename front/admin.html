@@ -75,59 +75,90 @@ th {
 </table>
 
 <script>
-const API = 'http://localhost:3000/api';
-const token = localStorage.getItem('token');
-const tipo = localStorage.getItem('tipo');
+    const API = 'http://localhost:3000/api';
+    const token = localStorage.getItem('token');
+    const tipo = localStorage.getItem('tipo');
 
-if (!token || tipo !== 'admin') {
-    alert('Acesso negado');
-    location.href = 'login.html';
-}
+    if (!token || tipo !== 'admin') {
+        alert('Acesso negado');
+        location.href = 'login.html';
+    }
 
-// ================= LISTAR USUÁRIOS =================
-async function carregarUsuarios() {
-    const res = await fetch(`${API}/admin/usuarios`, {
-        headers: { Authorization: 'Bearer ' + token }
-    });
+    // ================= LISTAR USUÁRIOS =================
+    async function carregarUsuarios() {
+        const tabela = document.getElementById('tabelaUsuarios');
+        tabela.innerHTML = `<tr><td colspan="4">Carregando...</td></tr>`;
 
-    const data = await res.json();
+        try {
+            const res = await fetch(`${API}/admin/usuarios`, {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            });
 
-    const tabela = document.getElementById('tabelaUsuarios');
-    tabela.innerHTML = '';
+            if (!res.ok) {
+                throw new Error('Erro ao buscar usuários');
+            }
 
-    data.forEach(u => {
-        tabela.innerHTML += `
+            const data = await res.json();
+
+            // Caso a API retorne { usuarios: [...] }
+            const usuarios = Array.isArray(data) ? data : data.usuarios;
+
+            tabela.innerHTML = '';
+
+            if (!usuarios || usuarios.length === 0) {
+                tabela.innerHTML = `
+                <tr>
+                    <td colspan="4">Nenhum usuário cadastrado</td>
+                </tr>
+            `;
+                return;
+            }
+
+            usuarios.forEach(u => {
+                tabela.innerHTML += `
+                <tr>
+                    <td>${u.id}</td>
+                    <td>${u.email}</td>
+                    <td>${u.tipo}</td>
+                    <td>
+                        <button onclick="excluir(${u.id})">Excluir</button>
+                    </td>
+                </tr>
+            `;
+            });
+
+        } catch (error) {
+            tabela.innerHTML = `
             <tr>
-                <td>${u.id}</td>
-                <td>${u.email}</td>
-                <td>${u.tipo}</td>
-                <td>
-                    <button onclick="excluir(${u.id})">Excluir</button>
-                </td>
+                <td colspan="4">Erro ao carregar usuários</td>
             </tr>
         `;
-    });
-}
+            console.error(error);
+        }
+    }
 
-// ================= EXCLUIR =================
-async function excluir(id) {
-    if (!confirm('Deseja excluir este usuário?')) return;
+    // ================= EXCLUIR =================
+    async function excluir(id) {
+        if (!confirm('Deseja excluir este usuário?')) return;
 
-    await fetch(`${API}/admin/usuarios/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: 'Bearer ' + token }
-    });
+        await fetch(`${API}/admin/usuarios/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+
+        carregarUsuarios();
+    }
+
+    function logout() {
+        localStorage.clear();
+        location.href = 'login.html';
+    }
 
     carregarUsuarios();
-}
-
-function logout() {
-    localStorage.clear();
-    location.href = 'login.html';
-}
-
-carregarUsuarios();
 </script>
-
 </body>
 </html>
